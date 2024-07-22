@@ -1,0 +1,46 @@
+###
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "student_id": {{$randomInt}},
+  "firstName": "{{$random.alphabetic(8)}}",
+  "lastName": "Matheis",
+  "email": "{{$random.email}}",
+  "eContact": "{{$random.integer(9_999_999_999,1_000_000_000)}}"
+}
+
+> {% let responseBody = JSON.parse(client.response.body)
+    const id = responseBody.id
+    console.log(id)
+    client.global.set("id", id)
+    // request.variables.set("id", id)
+%}
+
+###
+PUT http://localhost:8080/update/{{id}}
+Content-Type: application/json
+
+{
+  "email": "new.Email@email.com",
+  "eContact": "3425325435"
+}
+
+<> 2024-07-17T084925.200.txt
+<> 2024-07-17T083901.200.txt
+
+
+
+
+
+###
+GET http://localhost:8080/all
+
+> {%
+    client.test("Response status code is 200", function () {
+        client.assert(response.status === 200)
+    });
+%}
+
+###
+DELETE http://localhost:8080/delete/1
