@@ -1,21 +1,27 @@
-###
+### Making Student with God Data
 POST http://localhost:8080/add
 Content-Type: application/json
 
 {
-  "student_id": {{$randomInt}},
+  "studentID": {{$randomInt}},
   "firstName": "{{$random.alphabetic(8)}}",
   "lastName": "Matheis",
   "email": "{{$random.email}}",
-  "eContact": "{{$random.integer(9_999_999_999,1_000_000_000)}}"
+  "eContact": "1495954059"
 }
 
-> {% let responseBody = JSON.parse(client.response.body)
-    const id = responseBody.id
-    console.log(id)
-    client.global.set("id", id)
-    // request.variables.set("id", id)
-%}
+### Making Student with Bad Data
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "studentID": {{$randomInt}},
+  "firstName": "{{$random.alphabetic(8)}}",
+  "lastName": "Matheis",
+  "email": "{{$random.email}}",
+  "eContact": "999"
+}
+
 
 ###
 PUT http://localhost:8080/update/{{id}}
@@ -43,4 +49,4 @@ GET http://localhost:8080/all
 %}
 
 ###
-DELETE http://localhost:8080/delete/1
+DELETE http://localhost:8080/delete/42
