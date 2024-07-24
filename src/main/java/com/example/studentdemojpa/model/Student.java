@@ -13,13 +13,10 @@ import lombok.Setter;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  long id;
-
     @Column(name = "student_id")
     @JsonProperty("studentID")
-    @NotNull
-    private int studentID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  long studentID;
 
     @NotBlank
     @Column(name = "first_name")

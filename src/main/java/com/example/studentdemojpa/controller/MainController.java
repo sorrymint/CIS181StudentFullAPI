@@ -1,6 +1,7 @@
 package com.example.studentdemojpa.controller;
 
 import com.example.studentdemojpa.model.Student;
+import com.example.studentdemojpa.model.StudentUpdateDto;
 import com.example.studentdemojpa.service.NoStudentFoundException;
 import com.example.studentdemojpa.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,6 @@ public class MainController {
 //    https://www.jetbrains.com/help/objc/exploring-http-syntax.html#dynamic-variables
 
 //    TODO add custom exceptions
-//    TODO Move validation to service layer
-//    TODO Throw exceptions in service layer
-//    TODO catch exceptions in controller
-//    TODO have back end generate ID based on max student id + 1
 
     //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
     @PostMapping(path = "/add", consumes = "application/json")
@@ -61,15 +58,17 @@ public class MainController {
         }
     }
 
-    @PutMapping(path = "/update/{id}", consumes = "application/json")
-    public ResponseEntity<String> updateStudent(@PathVariable("id") int studentID, @RequestBody Student updatedStudent) {
+    @PatchMapping(path = "/update/{id}", consumes = "application/json")
+    public ResponseEntity<String> updateStudent(@PathVariable("id") long studentID, @RequestBody StudentUpdateDto updatedStudentDto) {
         try {
-            studentService.updateStudent(studentID, updatedStudent);
+            studentService.updateStudent(studentID, updatedStudentDto);
             return new ResponseEntity<>("Updated", HttpStatus.OK);
         } catch (NoStudentFoundException ex) {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
+
+
 
     @GetMapping("/findByName/{lastName}")
     @ResponseBody

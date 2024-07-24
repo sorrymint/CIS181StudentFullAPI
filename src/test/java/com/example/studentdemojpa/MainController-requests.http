@@ -3,7 +3,6 @@ POST http://localhost:8080/add
 Content-Type: application/json
 
 {
-  "studentID": {{$randomInt}},
   "firstName": "{{$random.alphabetic(8)}}",
   "lastName": "Matheis",
   "email": "{{$random.email}}",
@@ -15,8 +14,7 @@ POST http://localhost:8080/add
 Content-Type: application/json
 
 {
-  "studentID": {{$randomInt}},
-  "firstName": "{{$random.alphabetic(8)}}",
+  "firstName": "",
   "lastName": "Matheis",
   "email": "{{$random.email}}",
   "eContact": "999"
@@ -24,20 +22,16 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:8080/update/{{id}}
+PATCH http://localhost:8080/update/1
 Content-Type: application/json
 
 {
-  "email": "new.Email@email.com",
-  "eContact": "3425325435"
+  "email": "new.Email3@email.com",
+  "eContact": "3425325436"
 }
 
 <> 2024-07-17T084925.200.txt
 <> 2024-07-17T083901.200.txt
-
-
-
-
 
 ###
 GET http://localhost:8080/all

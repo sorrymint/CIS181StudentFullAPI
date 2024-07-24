@@ -1,15 +1,15 @@
 package com.example.studentdemojpa.service;
 
 import com.example.studentdemojpa.model.Student;
+import com.example.studentdemojpa.model.StudentUpdateDto;
+
 import java.util.List;
-import java.util.Optional;
 
 public interface StudentService {
     List<Student> findAll() throws NoStudentFoundException;
     void saveStudent(Student student);
-    void deleteStudent(int id) throws NoStudentFoundException;
-    Student updateStudent(int studentID, Student updatedStudent) throws NoStudentFoundException;
+    void deleteStudent(long studentID) throws NoStudentFoundException;
+    void updateStudent(long studentID, StudentUpdateDto updatedStudent) throws NoStudentFoundException;
     List<Student> findStudentsByLastName(String lastName);
-//    Optional<Student> findStudentById(Long id);
 }
 
