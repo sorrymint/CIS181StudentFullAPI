@@ -44,3 +44,10 @@ GET http://localhost:8080/all
 
 ###
 DELETE http://localhost:8080/delete/42
+
+###
+GET http://localhost:8080/findByName/Matheis
+
+>{%
+
+ %}

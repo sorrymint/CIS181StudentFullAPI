@@ -3,12 +3,14 @@ package com.example.studentdemojpa.controller;
 import com.example.studentdemojpa.model.Student;
 import com.example.studentdemojpa.model.StudentUpdateDto;
 import com.example.studentdemojpa.service.NoStudentFoundException;
+import com.example.studentdemojpa.service.StudentNameEmptyException;
 import com.example.studentdemojpa.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -69,12 +71,20 @@ public class MainController {
     }
 
 
-
     @GetMapping("/findByName/{lastName}")
     @ResponseBody
-    public List<Student> findStudentsByLastName(@PathVariable("lastName") String lastName) {
-        return studentService.findStudentsByLastName(lastName);
+    public ResponseEntity<?> findStudentsByLastName(@PathVariable("lastName") String lastName) {
+        List<Student> students = null;
+        try {
+            students = studentService.findStudentsByLastName(lastName);
+        } catch (NoStudentFoundException e) {
+            return new ResponseEntity<>("Invalid input", HttpStatus.BAD_REQUEST);
+        } catch (StudentNameEmptyException e) {
+            return new ResponseEntity<>("Last name can not be blank", HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
+
 }
 
 

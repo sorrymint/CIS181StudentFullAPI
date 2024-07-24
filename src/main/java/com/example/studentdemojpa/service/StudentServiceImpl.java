@@ -70,8 +70,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findStudentsByLastName(String lastName) {
-        //TODO add validation
-        return studentRepository.findByLastName(lastName);
+    public List<Student> findStudentsByLastName(String lastName) throws StudentNameEmptyException, NoStudentFoundException {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new StudentNameEmptyException("Last name must not be null or empty");
+        }
+        List<Student> students = studentRepository.findByLastName(lastName);
+        if (students.isEmpty()) {
+            throw new NoStudentFoundException("No student with that last name found.");
+        }
+        return students;
     }
+
 }

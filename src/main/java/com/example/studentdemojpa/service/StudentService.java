@@ -10,6 +10,6 @@ public interface StudentService {
     void saveStudent(Student student);
     void deleteStudent(long studentID) throws NoStudentFoundException;
     void updateStudent(long studentID, StudentUpdateDto updatedStudent) throws NoStudentFoundException;
-    List<Student> findStudentsByLastName(String lastName);
+    List<Student> findStudentsByLastName(String lastName) throws NoStudentFoundException, StudentNameEmptyException;
 }
 
